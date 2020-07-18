@@ -37,7 +37,7 @@
 1. MYSQL_Password是MYSQL用户对应的密码
 1. Backup_activate_days是备份要保留的天数
 
-### ftp上传配置
+### ftp上传配置(可选)
 1. Enable_FTP=0 0为打开上传,1为关闭上传
 1. FTP_Host为备份服务器的IP地址
 1. FTP_Username为前面在备份服务器上创建的ftp用户
@@ -49,8 +49,25 @@
 1. 检查Web服务器上Backup_Home目录中是否有生成sql结尾的备份文件
 1. 如果开启了ftp上传,则需要检查备份服务器上对应目录中sql备份文件是否已上传
 
+### 定时执行备份(可选)
+1. 定时执行最高频率为每天一次
+1. 使用`crontab -e`打开定时任务设定文件
+1. 如需要在每天凌晨3点15分执行备份, 可使用如下的配置(mysql-backup.sh安装路径为/root/mysql-backup/)
+    * `15 3 * * * /root/mysql-backup/mysql-backup.sh`
+    * 第一个数字代表定时的分钟, 第二个数字代表定时的小时, 可根据需要自行修改时间
+
 ### 说明
 1. 由于ftp配置和网络环境差异性非常大,本文档无法覆盖所有可能出现的情况,遇到问题清联系我或先行查看下面的Trouble Shooting章节.
 1. 本文档会根据遇到的问题进行修订,使用时请确认文档和脚本代码都是最新的,且版本一致
 
 ## Trouble Shooting
+
+1. Web服务器提示mysql-backup.sh文件没有权限
+    * 解决方法: 给mysql-backup.sh文件添加执行权限
+    * `chmod +x mysql-backup.sh`
+
+1. Web服务器提示没有lftp命令
+    * 解决方法: 在Web服务器上安装lftp程序
+        * CentOS: yum install lftp
+        * Ubuntu: apt-get install lftp
+
