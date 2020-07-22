@@ -63,6 +63,9 @@ mput ${Backup_Home}${TodayDBBackup}
 bye
 EOF
 
+echo "Uploading backup files to ftp complete."
+fi
+
 # Upload to Secondary FTP server
 if [ ${Enable_Secondary_FTP} = 0 ]; then
     echo "Uploading backup files to secondary ftp..."
@@ -76,5 +79,6 @@ mput ${Backup_Home}${TodayDBBackup}
 bye
 EOF
 
-echo "complete."
+echo "Uploading backup files to secondary ftp complete."
 fi
+
