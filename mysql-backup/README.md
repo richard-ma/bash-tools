@@ -3,7 +3,7 @@
 ## 一些约定
 1. 服务器A上有运行的cscart网站需要备份,备份后的数据库需要再上传到服务器B,后面服务器A称为web服务器,服务器B称为备份服务器
 
-## 备份服务器配置
+## 备份服务器配置(最多支持两台备份服务器)
 
 ### 安装FTP服务端
 1. 使用lnmp提供的脚本安装Pure-FTP软件
@@ -43,6 +43,13 @@
 1. FTP_Username为前面在备份服务器上创建的ftp用户
 1. FTP_Password为ftp用户对应的密码
 1. FTP_Dir为保存文件的目录,如果留空则直接保存在ftp根目录中
+
+### ftp上传第二备份服务器配置(可选)
+1. Enabl_Secondary_FTP=0 0为打开上传,1为关闭上传
+1. FTP_Secondary_Host为备份服务器的IP地址
+1. FTP_Secondary_Username为前面在备份服务器上创建的ftp用户
+1. FTP_Secondary_Password为ftp用户对应的密码
+1. FTP_Secondary_Dir为保存文件的目录,如果留空则直接保存在ftp根目录中
 
 ### 测试运行
 1. 配置完成后可以测试运行`./mysql-backup.sh`

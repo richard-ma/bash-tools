@@ -21,6 +21,13 @@ FTP_Username='ftp' # FTP服务器用户名
 FTP_Password='ftp' # FTP服务器用户对应密码
 FTP_Dir="" # FTP服务器目录, 空表示根目录
 
+# Secondary FTP Settings
+Enable_Secondary_FTP=0 # 0: enable; 1: disable
+FTP_Secondary_Host='1.4.1.5' # FTP服务器IP地址
+FTP_Secondary_Username='ftp' # FTP服务器用户名
+FTP_Secondary_Password='ftp' # FTP服务器用户对应密码
+FTP_Secondary_Dir="" # FTP服务器目录, 空表示根目录
+
 ###############################################################################
 # Settings End
 ###############################################################################
@@ -51,6 +58,19 @@ if [ ${Enable_FTP} = 0 ]; then
 set ftp:use-feat no
 set ftp:ssl-allow no
 cd ${FTP_Dir}
+mrm ${OldDBBackup}
+mput ${Backup_Home}${TodayDBBackup}
+bye
+EOF
+
+# Upload to Secondary FTP server
+if [ ${Enable_Secondary_FTP} = 0 ]; then
+    echo "Uploading backup files to secondary ftp..."
+    cd ${Backup_Home}
+    lftp ${FTP_Secondary_Host} -u ${FTP_Secondary_Username},${FTP_Secondary_Password} << EOF
+set ftp:use-feat no
+set ftp:ssl-allow no
+cd ${FTP_Secondary_Dir}
 mrm ${OldDBBackup}
 mput ${Backup_Home}${TodayDBBackup}
 bye
