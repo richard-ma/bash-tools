@@ -78,3 +78,7 @@
         * CentOS: yum install lftp
         * Ubuntu: apt-get install lftp
 
+1. 提示ftp目录权限不足
+    * 解决方法: 将FTP_Dir和FTP_Secondary_Dir所指向的目录设置为777
+    * 分别在备份服务器上运行下面命令
+    * `chmod 777 (FTP_Dir 和 FTP_Secondary_Dir所指向的目录)`
