@@ -11,7 +11,8 @@ smtp_servers = {
         },
 }
 
-def mail_send(email,password,subject_c, body_c, mail_to, smtp_server):
+def send_email(email,password,subject_c, body_c, mail_to, smtp_server_name):
+    smtp_server = smtp_servers[smtp_server_name]
     with smtplib.SMTP(smtp_server['server'], smtp_server['port']) as smtp:
         smtp.ehlo()
         smtp.starttls()

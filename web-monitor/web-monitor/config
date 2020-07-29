@@ -1,0 +1,6 @@
+[smtp]
+email=youremail
+password=yourpassword
+mail_title=[WEB-MONITOR] ERROR!!!
+mail_to=adminemail
+mail_server=qq
