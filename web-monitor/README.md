@@ -5,14 +5,11 @@
 
 ## 系统需求
 * Python 3.6及以上
-* virtualenv
 * pip
 
 ## 安装
 1. 将压缩包解压到任意目录, 此目录后文称为工作目录
 1. cd进入工作目录
-1. 使用`virtualenv -p python3 venv`命令创建工作环境
-1. 使用`source ./venv/bin/activate`命令使工作环境生效
 1. 使用`pip install -r requirements.txt`命令安装依赖的python包
 
 ## 配置
@@ -25,5 +22,21 @@
     1. mail_server发送邮件服务器,目前支持qq和gmail
 
 ## 测试运行
-1. 使用`source ./venv/bin/activate`命令使工作环境生效
-1. 在工作目录使用`python monitor.py`命令运行程序
+1. 在工作目录使用`python3 monitor.py`命令运行程序
+1. 运行结果
+    1. 能看到每个网址的测试结果
+    1. 如果有网址状态为Failed,则可以在邮箱收到通知邮件
+
+## 定时执行(可选)
+1. 使用`crontab -e`打开定时任务设定文件
+1. 如需要在每天凌晨3点15分执行, 可使用如下的配置(monitor.py安装路径为/root/web-monitor/)
+    * `15 3 * * * python3 /root/web-monitor/monitor.py`
+    * 第一个数字代表定时的分钟, 第二个数字代表定时的小时, 可根据需要自行修改时间
+    * `*/30 * * * * python3 /root/web-monitor/monitor.py`也可以用这种方法让脚本每30分钟执行一次
+
+## 说明
+1. 由于ftp配置和网络环境差异性非常大,本文档无法覆盖所有可能出现的情况,遇到问题清联系我或先行查看下面的Trouble Shooting章节.
+1. 本文档会根据遇到的问题进行修订,使用时请确认文档和脚本代码都是最新的,且版本一致
+
+## Trouble Shooting
+None
