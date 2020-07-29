@@ -24,10 +24,10 @@ def check_checklist(checklist):
                 record['status_code'] = r.status_code
                 if r.status_code == 200:
                     record['running_status'] = True
-                    print("Servers are not down Every a-okay! ")
+                    print(f"[{url}] Servers are not down Every a-okay! ")
                 else:
                     record['running_status'] = False
-                    print("Seems like servers are down... send email?")
+                    print(f"[{url}] Seems like servers are down... send email?")
                 record['checked'] = True # update checked status
             except Exception as e:
                 record['checked'] = False
@@ -60,7 +60,7 @@ def main():
     checklist_filename = 'checklist'
     config = load_config(config_filename)
     checklist = load_checklist(checklist_filename)
-    req = check_checklist(checklist, True)
+    req = check_checklist(checklist)
     send_email(
             config.get('smtp', 'email'),
             config.get('smtp', 'password'),
