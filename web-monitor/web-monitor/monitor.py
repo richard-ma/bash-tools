@@ -13,21 +13,7 @@ def load_checklist(filename):
         return lines
 
 
-def check_status(url, verbose=False):
-    try:
-        r = requests.get(url)
-        if verbose == 'False' and r.status_code == 200:
-            print("Servers are not down Every a-okay! ")
-        elif verbose == 'True' and r.status_code == 200:
-            print(r.headers)
-        else:
-            print(r.status_code)
-            print("Seems like servers are down... send email?")
-    except Exception as e:
-        print('ERROR: '+ str(e) + '')
-
-
-def check_checklist(checklist, verbose=False):
+def check_checklist(checklist):
     ret = []
     with requests.Session() as s: # create session
         for url in checklist:
@@ -38,12 +24,15 @@ def check_checklist(checklist, verbose=False):
                 record['status_code'] = r.status_code
                 if r.status_code == 200:
                     record['running_status'] = True
+                    print("Servers are not down Every a-okay! ")
                 else:
                     record['running_status'] = False
+                    print("Seems like servers are down... send email?")
                 record['checked'] = True # update checked status
             except Exception as e:
                 record['checked'] = False
                 record['error'] = 'ERROR: '+ str(e) + ''
+                print('ERROR: '+ str(e) + '')
             ret.append(record)
 
     return ret
