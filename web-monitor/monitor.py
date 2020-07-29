@@ -24,10 +24,10 @@ def check_checklist(checklist):
                 record['status_code'] = r.status_code
                 if r.status_code == 200:
                     record['running_status'] = True
-                    print(f"[{url}] Servers are not down Every a-okay! ")
+                    print(f"[{url}] OK!")
                 else:
                     record['running_status'] = False
-                    print(f"[{url}] Seems like servers are down... send email?")
+                    print(f"[{url}] Failed")
                 record['checked'] = True # update checked status
             except Exception as e:
                 record['checked'] = False

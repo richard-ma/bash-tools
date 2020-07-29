@@ -16,8 +16,8 @@
 1. 使用`pip install -r requirements.txt`命令安装依赖的python包
 
 ## 配置
-1. 将需要检查的网址写入/web-monitor/checklist文件中(每行一个,以http://开头)
-1. 打开/web-monitor/config文件,配置邮件服务器
+1. 将需要检查的网址写入checklist文件中(每行一个,以http://开头)
+1. 打开config文件,配置邮件服务器
     1. email为发邮件邮箱地址
     1. password为发邮件邮箱密码(少数邮箱发送邮件密码不同于登陆密码,请查看邮箱说明)
     1. mail_title为发送邮件的标题
@@ -26,4 +26,4 @@
 
 ## 测试运行
 1. 使用`source ./venv/bin/activate`命令使工作环境生效
-1. 在工作目录使用`python ./web-monitor/monitor.py`命令运行程序
+1. 在工作目录使用`python monitor.py`命令运行程序
