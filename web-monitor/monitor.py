@@ -1,6 +1,13 @@
 import requests
 import configparser
+import sys, os
 from send_email import *
+
+# get current path
+# https://blog.csdn.net/vitaminc4/article/details/78702852
+current_path = os.path.split(os.path.realpath(__file__))[0]
+# set working directory
+os.chdir(current_path)
 
 record_keys = ['url', 'checked', 'running_status', 'status_code', 'error']
 
