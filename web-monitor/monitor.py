@@ -20,14 +20,14 @@ def load_checklist(filename):
         return lines
 
 
-def check_checklist(checklist):
+def check_checklist(checklist, timeout=10):
     ret = []
     with requests.Session() as s: # create session
         for url in checklist:
             record = {x: '' for x in record_keys}
             record['url'] = url
             try:
-                r = s.get(url)
+                r = s.get(url, timeout=timeout)
                 record['status_code'] = r.status_code
                 if r.status_code == 200:
                     record['running_status'] = True
