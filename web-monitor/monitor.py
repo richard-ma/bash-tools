@@ -2,6 +2,7 @@ import requests
 import configparser
 import sys, os
 from send_email import *
+from requests.exceptions import Timeout
 
 # get current path
 # https://blog.csdn.net/vitaminc4/article/details/78702852
@@ -36,10 +37,16 @@ def check_checklist(checklist, timeout=10):
                     record['running_status'] = False
                     print(f"[{url}] Failed")
                 record['checked'] = True # update checked status
+            except Timeout as e:
+                # server timeout
+                record['running_status'] = False
+                record['checked'] = True
+                print(f"[{url}] Timeout")
             except Exception as e:
                 record['checked'] = False
                 record['error'] = 'ERROR: '+ str(e) + ''
                 print('ERROR: '+ str(e) + '')
+
             ret.append(record)
 
     return ret
@@ -68,13 +75,14 @@ def main():
     config = load_config(config_filename)
     checklist = load_checklist(checklist_filename)
     req = check_checklist(checklist)
-    send_email(
-            config.get('smtp', 'email'),
-            config.get('smtp', 'password'),
-            config.get('smtp', 'mail_title'),
-            generate_mail_contents(req),
-            config.get('smtp', 'mail_to'),
-            config.get('smtp', 'mail_server'))
+    print(req)
+    #send_email(
+            #config.get('smtp', 'email'),
+            #config.get('smtp', 'password'),
+            #config.get('smtp', 'mail_title'),
+            #generate_mail_contents(req),
+            #config.get('smtp', 'mail_to'),
+            #config.get('smtp', 'mail_server'))
 
 
 if __name__ == '__main__':
