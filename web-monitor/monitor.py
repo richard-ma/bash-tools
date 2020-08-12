@@ -21,7 +21,7 @@ def load_checklist(filename):
         return lines
 
 
-def check_checklist(checklist, timeout=10):
+def check_checklist(checklist, timeout):
     ret = []
     with requests.Session() as s: # create session
         for url in checklist:
@@ -74,15 +74,14 @@ def main():
     checklist_filename = 'checklist'
     config = load_config(config_filename)
     checklist = load_checklist(checklist_filename)
-    req = check_checklist(checklist)
-    print(req)
-    #send_email(
-            #config.get('smtp', 'email'),
-            #config.get('smtp', 'password'),
-            #config.get('smtp', 'mail_title'),
-            #generate_mail_contents(req),
-            #config.get('smtp', 'mail_to'),
-            #config.get('smtp', 'mail_server'))
+    req = check_checklist(checklist, timeout=config.getint('main', 'request_timeout'))
+    send_email(
+            config.get('smtp', 'email'),
+            config.get('smtp', 'password'),
+            config.get('smtp', 'mail_title'),
+            generate_mail_contents(req),
+            config.get('smtp', 'mail_to'),
+            config.get('smtp', 'mail_server'))
 
 
 if __name__ == '__main__':
