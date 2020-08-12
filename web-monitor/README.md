@@ -9,7 +9,7 @@
 ## 安装
 1. 将压缩包解压到任意目录, 此目录后文称为工作目录
 1. cd进入工作目录
-1. 使用`pip install -r requirements.txt`命令安装依赖的python包
+1. 使用`pip3 install -r requirements.txt`命令安装依赖的python包
 
 ## 配置
 1. 将需要检查的网址写入checklist文件中(每行一个,以http://开头)
