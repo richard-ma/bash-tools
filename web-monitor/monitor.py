@@ -75,7 +75,8 @@ def main():
     config = load_config(config_filename)
     checklist = load_checklist(checklist_filename)
     req = check_checklist(checklist, timeout=config.getint('main', 'request_timeout'))
-    send_email(
+    if len(req) > 0:
+        send_email(
             config.get('smtp', 'email'),
             config.get('smtp', 'password'),
             config.get('smtp', 'mail_title'),
