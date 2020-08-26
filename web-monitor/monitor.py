@@ -69,20 +69,26 @@ def load_config(filename):
     config.read(filename)
     return config
 
+def mail_notify(result, config):
+    content = generate_mail_contents(result)
+
+    if content:
+        send_email(
+            config.get('smtp', 'email'),
+            config.get('smtp', 'password'),
+            config.get('smtp', 'mail_title'),
+            content,
+            config.get('smtp', 'mail_to'),
+            config.get('smtp', 'mail_server'))
+
+
 def main():
     config_filename = 'config'
     checklist_filename = 'checklist'
     config = load_config(config_filename)
     checklist = load_checklist(checklist_filename)
     req = check_checklist(checklist, timeout=config.getint('main', 'request_timeout'))
-    if len(req) > 0:
-        send_email(
-            config.get('smtp', 'email'),
-            config.get('smtp', 'password'),
-            config.get('smtp', 'mail_title'),
-            generate_mail_contents(req),
-            config.get('smtp', 'mail_to'),
-            config.get('smtp', 'mail_server'))
+    mail_notify(req, config)
 
 
 if __name__ == '__main__':
